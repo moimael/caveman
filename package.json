@@ -2,10 +2,11 @@
   "name": "caveman",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"We appreciate tests\"",
-    "backend": "node backend.js"
+    "test": "jest",
+    "lint": "./node_modules/eslint/bin/eslint.js src/",
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot"
   },
   "repository": {
     "type": "git",
@@ -24,11 +25,26 @@
   },
   "homepage": "https://github.com/UniversalAvenue/caveman#readme",
   "dependencies": {
-    "body-parser": "1.14.1",
-    "express": "4.13.3",
-    "react": "0.14.3",
-    "react-dom": "0.14.3",
-    "react-google-maps": "4.4.1",
-    "whatwg-fetch": "0.10.1"
-  }
+    "babel-core": "5.8.35",
+    "babel-jest": "5.2.1",
+    "babel-loader": "5.4.0",
+    "eslint": "1.10.3",
+    "eslint-config-airbnb": "5.0.1",
+    "eslint-plugin-react": "3.16.1",
+    "jest-cli": "0.8.2",
+    "jest-webpack-alias": "2.2.0",
+    "react": "0.14.7",
+    "react-dom": "0.14.7",
+    "react-hot-loader": "1.3.0",
+    "webpack": "1.12.13",
+    "webpack-dev-server": "1.14.1"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/preprocessor.js"
+  },
+  "unmockedModulePathPatterns": [
+    "<rootDir>/node_modules/react",
+    "<rootDir>/node_modules/react-dom",
+    "<rootDir>/node_modules/react-addons-test-utils"
+  ]
 }
