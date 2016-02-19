@@ -12,3 +12,12 @@ Use only inline styling.
 Make sure to create "reuseable" components with a well crafted api. 
 
 The components should work as expected both in a desktop and mobile environment. 
+
+## Tips
+
+At Universal Avenue we appreciate functional programming, we are especially fond
+of the concept of functional composition when it comes to React components. So
+much, in fact, that we created `react-compose` to make this easier.
+
+In closing, small encapsulated pieces of logic that make sense in a larger
+context is the way to impress us.

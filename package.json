@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "./node_modules/jest-cli/bin/jest.js",
     "lint": "./node_modules/eslint/bin/eslint.js src/",
     "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot"
   },
