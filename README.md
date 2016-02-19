@@ -13,6 +13,9 @@ Make sure to create "reuseable" components with a well crafted api.
 
 The components should work as expected both in a desktop and mobile environment. 
 
+We don't need to tell you how a button should be more than just an onClick
+event. 
+
 ## Tips
 
 At Universal Avenue we appreciate functional programming, we are especially fond
