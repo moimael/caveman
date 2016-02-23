@@ -16,6 +16,9 @@ The components should work as expected both in a desktop and mobile environment.
 We don't need to tell you how a button should be more than just an onClick
 event. 
 
+To be clear, we are asking you to reinvent the wheel here. Although it might be redundant
+in any other scenario, we are interested in how you construct that wheel, spokes and all. 
+
 ## Tips
 
 At Universal Avenue we appreciate functional programming, we are especially fond
