@@ -14,7 +14,7 @@ describe('Dropdown', () => {
     ];
 
     const renderer = TestUtils.createRenderer();
-    renderer.render(<Dropdown optionItems={optionItems} />);
+    renderer.render(<Dropdown title="Sort by" optionItems={optionItems} />);
     let result = renderer.getRenderOutput();
 
     let ul = result.props.children[1];

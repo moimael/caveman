@@ -7,6 +7,7 @@ class Dropdown extends React.Component {
   static propTypes = {
     optionItems: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     onOptionItemClick: React.PropTypes.func,
+    title: React.PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -122,7 +123,7 @@ class Dropdown extends React.Component {
     <div style={[styles.dropdownWrapper, wrapperActiveStyle]}
       onClick={this.handleClick}
     >
-      <span>Sort by</span>
+      <span>{this.props.title}</span>
       <ul style={[styles.dropdown, activeStyle]}>
         {options}
       </ul>

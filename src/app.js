@@ -40,7 +40,10 @@ export default class App extends React.Component {
       </div>
       <br />
       <div>
-        <Dropdown optionItems={this.state.optionItems} onOptionItemClick={this.handleOptionClick} />
+        <Dropdown title="Sort by"
+          optionItems={this.state.optionItems}
+          onOptionItemClick={this.handleOptionClick}
+        />
       </div>
       <br />
       <div>
