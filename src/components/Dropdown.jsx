@@ -5,12 +5,14 @@ import Radium from 'radium';
 class Dropdown extends React.Component {
 
   static propTypes = {
-    items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+    optionItems: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+    onOptionItemClick: React.PropTypes.func,
   }
 
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleOptionClick = this.handleOptionClick.bind(this);
   }
 
   state = {
@@ -21,6 +23,10 @@ class Dropdown extends React.Component {
     this.setState({
       isActive: !this.state.isActive,
     });
+  }
+
+  handleOptionClick(event) {
+    this.props.onOptionItemClick(event.target.value, event.target.textContent);
   }
 
   render() {
@@ -53,12 +59,26 @@ class Dropdown extends React.Component {
         opacity: 0,
         left: '-2px',
         right: '-2px',
-        cursor: 'pointer',
-        zIndex: 800,
+        cursor: 'default',
+        pointerEvents: 'none',
       },
 
       dropdownAfter: {
+        borderStyle: 'solid',
+        borderWidth: '0.15em 0.15em 0 0',
+        content: '',
+        display: 'inline-block',
+        height: '0.45em',
+        right: '1em',
+        position: 'absolute',
+        top: 'calc(50% - 0.15em)',
+        transform: 'translateY(-50%) rotate(135deg)',
+        verticalAlign: 'top',
+        width: '0.45em',
+      },
 
+      dropdownAfterActive: {
+        transform: 'rotate(-45deg)',
       },
 
       optionItem: {
@@ -72,29 +92,41 @@ class Dropdown extends React.Component {
       },
 
       wrapperActive: {
-        borderBottom: 0,
+        borderBottom: '2px solid #1C2026',
       },
 
       active: {
         borderTop: 0,
+        cursor: 'pointer',
         opacity: 1,
+        pointerEvents: 'auto',
+        zIndex: 800,
       },
     };
 
-    const options = this.props.items.map((item, index) => {
-      return <li key={index} style={styles.optionItem} value={index}>{item}</li>;
+    const options = this.props.optionItems.map((optionItem, index) => {
+      return (<li key={index}
+        style={styles.optionItem}
+        value={index}
+        onClick={::this.handleOptionClick}
+      >
+        {optionItem}
+      </li>);
     });
     const activeStyle = this.state.isActive ? styles.active : null;
     const wrapperActiveStyle = this.state.isActive ? styles.wrapperActive : null;
+    const dropdownAfterActiveStyle = this.state.isActive ? styles.dropdownAfterActive : null;
 
     return (
 
-    <div style={[styles.dropdownWrapper, wrapperActiveStyle]} onClick={this.handleClick}>
+    <div style={[styles.dropdownWrapper, wrapperActiveStyle]}
+      onClick={this.handleClick}
+    >
       <span>Sort by</span>
       <ul style={[styles.dropdown, activeStyle]}>
         {options}
       </ul>
-      <span style={styles.dropdownAfter}></span>
+      <span style={[styles.dropdownAfter, dropdownAfterActiveStyle]}></span>
     </div>
     );
   }

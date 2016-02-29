@@ -1,28 +1,33 @@
 jest.unmock('../components/Dropdown.jsx');
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import Dropdown from '../components/Dropdown.jsx';
 
 describe('Dropdown', () => {
 
-  it('changes the text after click', () => {
-    // Render a checkbox with label in the document
-    const dropdown = TestUtils.renderIntoDocument(
-      <Dropdown labelOn="On" labelOff="Off" />
-    );
+  it('shows options after click', () => {
+    const optionItems = [
+      'optionTest1',
+      'optionTest2',
+      'optionTest3',
+    ];
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const renderer = TestUtils.createRenderer();
+    renderer.render(<Dropdown optionItems={optionItems} />);
+    let result = renderer.getRenderOutput();
+
+    let ul = result.props.children[1];
 
     // Verify that it's Off by default
-    expect(checkboxNode.textContent).toEqual('Off');
+    // expect(result.getMountedInstance().state.isActive).toEqual(true);
+    expect(ul.props.style[0].opacity).toEqual(0);
 
-    // Simulate a click and verify that it is now On
-    TestUtils.Simulate.change(
-      TestUtils.findRenderedDOMComponentWithTag(checkbox, 'input')
-    );
-    expect(checkboxNode.textContent).toEqual('On');
+    result.props.onClick({ preventDefault: () => {} });
+
+    result = renderer.getRenderOutput();
+    ul = result.props.children[1];
+
+    expect(ul.props.style[1].opacity).toEqual(1);
   });
-
 });

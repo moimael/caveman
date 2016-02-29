@@ -4,6 +4,12 @@ import Dropdown from './components/Dropdown.jsx';
 
 export default class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleOptionClick = this.handleOptionClick.bind(this);
+  }
+
   state = {
     optionItems: [
       'My brand portfolio',
@@ -11,6 +17,14 @@ export default class App extends React.Component {
       'Highest earnings',
       'Date added',
     ],
+  }
+
+  handleClick() {
+    console.log("button clicked !");
+  }
+
+  handleOptionClick(value, text) {
+    console.log(value, text);
   }
 
   render() {
@@ -22,11 +36,11 @@ export default class App extends React.Component {
 
     return (<div style={appStyle}>
       <div>
-        <Button>VIEW BRAND</Button>
+        <Button onClick={this.handleClick}>VIEW BRAND</Button>
       </div>
       <br />
       <div>
-        <Dropdown items={this.state.optionItems} />
+        <Dropdown optionItems={this.state.optionItems} onOptionItemClick={this.handleOptionClick} />
       </div>
       <br />
       <div>

@@ -7,22 +7,24 @@ import Button from '../components/Button.jsx';
 
 describe('Button', () => {
 
-  it('changes the text after click', () => {
+  it('display correct text', () => {
     // Render a checkbox with label in the document
-    const checkbox = TestUtils.renderIntoDocument(
-      <CheckboxWithLabel labelOn="On" labelOff="Off" />
+    const button = TestUtils.renderIntoDocument(
+      <Button>VIEW BRAND</Button>
     );
 
-    const checkboxNode = ReactDOM.findDOMNode(checkbox);
+    const buttonNode = ReactDOM.findDOMNode(button);
 
     // Verify that it's Off by default
-    expect(checkboxNode.textContent).toEqual('Off');
-
-    // Simulate a click and verify that it is now On
-    TestUtils.Simulate.change(
-      TestUtils.findRenderedDOMComponentWithTag(checkbox, 'input')
-    );
-    expect(checkboxNode.textContent).toEqual('On');
+    expect(buttonNode.textContent).toEqual('VIEW BRAND');
   });
 
+  it('display as block element', () => {
+    const renderer = TestUtils.createRenderer();
+    renderer.render(<Button block>VIEW BRAND</Button>);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props.style[1].display).toEqual('block');
+    expect(result.props.style[1].width).toEqual('100%');
+  });
 });
