@@ -8,14 +8,12 @@ import Button from '../components/Button.jsx';
 describe('Button', () => {
 
   it('display correct text', () => {
-    // Render a checkbox with label in the document
     const button = TestUtils.renderIntoDocument(
       <Button>VIEW BRAND</Button>
     );
 
     const buttonNode = ReactDOM.findDOMNode(button);
 
-    // Verify that it's Off by default
     expect(buttonNode.textContent).toEqual('VIEW BRAND');
   });
 

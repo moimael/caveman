@@ -19,8 +19,6 @@ describe('Dropdown', () => {
 
     let ul = result.props.children[1];
 
-    // Verify that it's Off by default
-    // expect(result.getMountedInstance().state.isActive).toEqual(true);
     expect(ul.props.style[0].opacity).toEqual(0);
 
     result.props.onClick({ preventDefault: () => {} });
