@@ -40,6 +40,10 @@ export default class App extends React.Component {
       </div>
       <br />
       <div>
+        <Button disabled>VIEW BRAND</Button>
+      </div>
+      <br />
+      <div>
         <Dropdown title="Sort by"
           optionItems={this.state.optionItems}
           onOptionItemClick={this.handleOptionClick}

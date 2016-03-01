@@ -7,7 +7,37 @@ class Button extends React.Component {
   static propTypes = {
     block: React.PropTypes.bool,
     children: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
     onClick: React.PropTypes.func,
+  }
+
+  constructor(props) {
+    super(props);
+    this.handleActive = this.handleActive.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleHover = this.handleHover.bind(this);
+  }
+
+  state = {
+    isActive: false,
+    isHovered: false,
+    isDisabled: this.props.disabled,
+  }
+
+  handleActive() {
+    this.setState({
+      isActive: !this.state.isActive,
+    });
+  }
+
+  handleClick() {
+    this.props.onClick && this.props.onClick();
+  }
+
+  handleHover(event) {
+    this.setState({
+      isHovered: (event.type === 'mouseenter') && !this.props.disabled,
+    });
   }
 
   render() {
@@ -22,21 +52,24 @@ class Button extends React.Component {
         transform: 'matrix(1, 0, 0, 1, 0, 0)',
         opacity: 1,
 
-        ':hover': {
-          color: '#152334',
-          outline: 'none',
-        },
-
-        ':active': {
-          border: '2px solid #D8D8D9',
-          color: '#E3ECD4',
-          outline: 'none',
-        },
-
         ':focus': {
           color: '#E3ECD4',
           outline: 'none',
         },
+      },
+
+      baseActive: {
+        border: '2px solid #D8D8D9',
+        color: '#E3ECD4',
+        outline: 'none',
+      },
+
+      baseHover: {
+        color: '#152334',
+        outline: 'none',
+      },
+      disabled: {
+        color: '#7A7C80',
       },
       pseudoElement: {
         backgroundColor: '#FFFFFF',
@@ -60,15 +93,25 @@ class Button extends React.Component {
       },
     };
 
-    const pseudoStyle = Radium.getState(this.state, 'mainBtn', ':hover') &&
+    const pseudoHoverStyle = this.state.isHovered &&
       !Radium.getState(this.state, 'mainBtn', ':focus') ? styles.pseudoElementHover : null;
+    const btnHoverStyle = this.state.isHovered && styles.baseHover;
+    const btnActiveStyle = this.state.isActive && styles.baseActive;
+    const btnDisabledStyle = this.state.isDisabled && styles.disabled;
+    const btnBlockStyle = this.props.block && styles.block;
+
     return (
         <button
           key="mainBtn"
-          onClick={this.props.onClick}
-          style={[styles.base, this.props.block && styles.block]}
+          onClick={this.handleClick}
+          onMouseDown={this.handleActive}
+          onMouseUp={this.handleActive}
+          onMouseEnter={this.handleHover}
+          onMouseLeave={this.handleHover}
+          disabled={this.state.isDisabled}
+          style={[styles.base, btnBlockStyle, btnDisabledStyle, btnHoverStyle, btnActiveStyle]}
         >
-          <div key="before" style={[styles.pseudoElement, pseudoStyle]} />
+          <div key="before" style={[styles.pseudoElement, pseudoHoverStyle]} />
 
         {this.props.children}
        </button>
